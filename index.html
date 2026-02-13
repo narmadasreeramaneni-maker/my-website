@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Galentine 💖</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  text-align:center;
+  background: linear-gradient(to right,#ff758c,#ff7eb3);
+  overflow:hidden;
+}
+
+h1{
+  margin-top:80px;
+  font-size:28px;
+  color:white;
+}
+
+button{
+  padding:12px 25px;
+  margin:15px;
+  font-size:18px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+#yes{
+  background:#ff1744;
+  color:white;
+  position:relative;
+}
+
+#no{
+  background:white;
+  color:#ff1744;
+  position:absolute;
+}
+
+#message{
+  font-size:22px;
+  color:white;
+  margin-top:20px;
+  min-height:30px;
+}
+
+/* Balloon */
+.balloon{
+  position:absolute;
+  width:40px;
+  height:50px;
+  border-radius:50%;
+  animation: rise linear infinite;
+}
+
+@keyframes rise{
+  from{bottom:-60px;}
+  to{bottom:100vh;}
+}
+</style>
+</head>
+
+<body>
+
+<h1>Will You Be My Galentine Forever? 💖</h1>
+
+<button id="yes">Yes ❤️</button>
+<button id="no">No 😜</button>
+
+<div id="message"></div>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const msg = document.getElementById("message");
+
+let noClickCount = 0;
+let yesSize = 18; // starting font size
+
+// NO button click
+noBtn.addEventListener("click",()=>{
+
+  noClickCount++;
+
+  if(noClickCount === 1){
+    msg.innerHTML = "Meghs no click chestava? Alochinchu 😏";
+  }
+  else if(noClickCount === 2){
+    msg.innerHTML = "Neku ah chance ledu le 😂";
+  }
+  else if(noClickCount === 3){
+    msg.innerHTML = "Last chance amma 😢";
+  }
+  else{
+    msg.innerHTML = "Em chesina YES matrame option 😭❤️";
+  }
+
+  // Move NO button randomly
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  // Increase YES button size
+  yesSize += 8;
+  yesBtn.style.fontSize = yesSize + "px";
+  yesBtn.style.padding = (12 + noClickCount*3) + "px " + (25 + noClickCount*5) + "px";
+});
+
+// YES button
+yesBtn.addEventListener("click",()=>{
+  msg.innerHTML = "Yayyyy 💕 I Love Youuu Meghsssss 🥰";
+  createBalloons();
+  noBtn.style.display="none";
+});
+
+// Balloons
+function createBalloons(){
+  for(let i=0;i<25;i++){
+    let balloon = document.createElement("div");
+    balloon.className="balloon";
+    balloon.style.left=Math.random()*window.innerWidth+"px";
+    balloon.style.background="hsl("+Math.random()*360+",70%,60%)";
+    balloon.style.animationDuration=(3+Math.random()*3)+"s";
+    document.body.appendChild(balloon);
+  }
+}
+</script>
+
+</body>
+</html>
